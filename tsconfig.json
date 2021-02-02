@@ -9,7 +9,9 @@
       "moduleResolution": "node",
       "noEmit": true,
       "strict": true,
-      "target": "esnext"
+      "target": "esnext",
+      "baseUrl": "./",
+      "sourceRoot": "./",  
     },
     "exclude": [
       "node_modules",
