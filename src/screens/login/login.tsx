@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View,TextInput,Dimensions} from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { LoginServer } from './../../api/handler';
+import { LoginServer,LoginWebService } from './../../api/handler';
 import Toast from 'react-native-toast-message';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Spinner from 'react-native-loading-spinner-overlay';
@@ -22,26 +22,36 @@ export default function Login(){
         checkLogin();
     },[])
     const _OnLogin=()=>{
-        setLoading(true);
-        LoginServer(username,password).then( async result=>{
-            setLoading(false);
-            Toast.show({
-                type:"success",
-                text1:"Đăng Nhập Thành Công",
-                visibilityTime: 4000,
-                autoHide: true,
-            })
-            await AsyncStorage.setItem('@cookie', result.data.cookie);
-            navigation.navigate("HOME");
-        }).catch(error=>{
-            Toast.show({
-                type:"error",
-                text1:"Tên Tài Khoản Hoặc Mật Khẩu Không Đúng",
-                visibilityTime: 4000,
-                autoHide: true,
-            })
-            setLoading(false);
+        LoginWebService(username,password).then((result)=>{
+            console.log(result.body);
+            return result.text();
         })
+        .then(result=>console.log(result))
+        .catch(error=>{
+            console.log("Lõi")
+            console.log(error)
+        })
+        // setLoading(true);
+        // LoginServer(username,password).then( async result=>{
+        //     setLoading(false);
+        //     Toast.show({
+        //         type:"success",
+        //         text1:"Đăng Nhập Thành Công",
+        //         visibilityTime: 4000,
+        //         autoHide: true,
+        //     })
+        //     await AsyncStorage.setItem('@cookie', result.data.cookie);
+        //     navigation.navigate("HOME");
+        // }).catch(error=>{
+        //     Toast.show({
+        //         type:"error",
+        //         text1:"Tên Tài Khoản Hoặc Mật Khẩu Không Đúng",
+        //         visibilityTime: 4000,
+        //         autoHide: true,
+        //     })
+        //     setLoading(false);
+        // })
+        
     }
     return (
         <View style={styles.container}>
