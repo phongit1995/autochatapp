@@ -8,15 +8,19 @@
 
 import React from 'react';
 import {
-  View,
-  Text,
+  StatusBar,
 } from 'react-native';
+import Main from './src/screens'
+import Toast from 'react-native-toast-message';
 
 
 const App = () => {
   return (
     <>
-     <View><Text>Phong</Text></View>
+    <StatusBar barStyle={"dark-content"}    backgroundColor="transparent"></StatusBar>
+
+    <Main></Main>
+    <Toast ref={(ref) => Toast.setRef(ref)} />
     </>
   );
 };

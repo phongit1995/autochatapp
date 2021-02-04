@@ -1,1 +1,1 @@
-export const BASE_URL:string = "https://google.com"
+export const BASE_URL:string = "https://gaubong.us"
