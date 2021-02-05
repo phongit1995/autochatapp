@@ -19,6 +19,7 @@
     "fetch": "^1.1.0",
     "react": "16.13.1",
     "react-native": "0.63.4",
+    "react-native-cheerio": "^1.0.0-rc.4",
     "react-native-gesture-handler": "^1.9.0",
     "react-native-loading-spinner-overlay": "^2.0.0",
     "react-native-reanimated": "^1.13.2",

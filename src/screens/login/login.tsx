@@ -22,35 +22,26 @@ export default function Login(){
         checkLogin();
     },[])
     const _OnLogin=()=>{
-        LoginWebService(username,password).then((result)=>{
-            console.log(result.body);
-            return result.text();
+        setLoading(true);
+        LoginServer(username,password).then( async result=>{
+            setLoading(false);
+            Toast.show({
+                type:"success",
+                text1:"Đăng Nhập Thành Công",
+                visibilityTime: 4000,
+                autoHide: true,
+            })
+            await AsyncStorage.setItem('@cookie', result.data.cookie);
+            navigation.navigate("HOME");
+        }).catch(error=>{
+            Toast.show({
+                type:"error",
+                text1:"Tên Tài Khoản Hoặc Mật Khẩu Không Đúng",
+                visibilityTime: 4000,
+                autoHide: true,
+            })
+            setLoading(false);
         })
-        .then(result=>console.log(result))
-        .catch(error=>{
-            console.log("Lõi")
-            console.log(error)
-        })
-        // setLoading(true);
-        // LoginServer(username,password).then( async result=>{
-        //     setLoading(false);
-        //     Toast.show({
-        //         type:"success",
-        //         text1:"Đăng Nhập Thành Công",
-        //         visibilityTime: 4000,
-        //         autoHide: true,
-        //     })
-        //     await AsyncStorage.setItem('@cookie', result.data.cookie);
-        //     navigation.navigate("HOME");
-        // }).catch(error=>{
-        //     Toast.show({
-        //         type:"error",
-        //         text1:"Tên Tài Khoản Hoặc Mật Khẩu Không Đúng",
-        //         visibilityTime: 4000,
-        //         autoHide: true,
-        //     })
-        //     setLoading(false);
-        // })
         
     }
     return (
