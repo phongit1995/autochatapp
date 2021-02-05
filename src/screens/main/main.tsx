@@ -5,7 +5,8 @@ import { useNavigation } from '@react-navigation/native';
 import {getDataUserServer,getListUserOnline} from '../../api/handler';
 import cheerio from 'react-native-cheerio';
 import Spinner from 'react-native-loading-spinner-overlay';
-import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
+import { ScrollView, TextInput, TouchableOpacity } from 'react-native-gesture-handler';
+import Toast from 'react-native-toast-message';
 const {height}=Dimensions.get("window");
 export default function Main(){
     const navigation =useNavigation();
@@ -49,6 +50,18 @@ export default function Main(){
             setLoading(false);
         });
     }
+    const _OnSendMessage =()=>{
+        setLoading(true);
+        if(listUser.length==0){
+            Toast.show({
+                type:"error",
+                text1:"Tên Tài Khoản Hoặc Mật Khẩu Không Đúng",
+                visibilityTime: 4000,
+                autoHide: true,
+            })
+            setLoading(false);
+        }
+    }
     return(
         <View style={styles.container}>
             <View style={{flexDirection:"row" ,justifyContent:"space-between",marginBottom:20}}>
@@ -74,6 +87,16 @@ export default function Main(){
                     })
                 }
             </ScrollView>
+            <View>
+                <TextInput
+                placeholder="Nhập Tin Nhắn..."
+                />
+            </View>
+            <View style={{margin:10,justifyContent:"center",alignItems:"center"}}>
+                <TouchableOpacity style={{padding:10 }} onPress={_OnSendMessage}>
+                    <Text>Gửi Tin Nhắn</Text>
+                </TouchableOpacity>
+            </View>
             <Spinner
                 visible={loading}
             />
